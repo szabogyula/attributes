@@ -19,7 +19,7 @@ that define the federation.
 ```yaml
 
 ---
-brand: attributes.eduid.hu
+brand: attributes
 logo: images/logo.png
 attributetypes:
     mandatory:
