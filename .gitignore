@@ -1,0 +1,3 @@
+/docker-config/apache_cert/server.pem
+/app/vendor/
+.idea

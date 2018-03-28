@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    image: szabogyula/attributes
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: attributes
+    volumes:
+      - /opt/attributes/config:/var/www/html/config
+      - /opt/attributes/shibboleth/attribute-configs:/etc/shibboleth/attribute-configs
+      - /opt/attributes/shibboleth/cert:/etc/shibboleth/cert
+      - /opt/attributes/apache_cert/:/etc/apache2/cert
+      - /opt/attributes/logs/apache2:/var/log/apache2
+      - /opt/attributes/logs/shibboleth:/var/log/shibboleth
+    env_file:
+      - .env

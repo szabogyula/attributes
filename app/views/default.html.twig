@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if logged_in %}
+
+        <h2>user attributes</h2>
+        <table class="table table-responsive" id="attributes">
+            <thead>
+            <tr>
+                <th>name, ids</th>
+                <th>value</th>
+            </tr>
+            </thead>
+            <tbody id="mandatory">
+                <tr class="bg-warning">
+                    <th colspan="2" >Mandatory attributes</th>
+                </tr>
+            </tbody>
+            <tbody id="recommended">
+                <tr class="bg-info text-white">
+                    <th colspan="2">Recommended attributes</th>
+                </tr>
+            </tbody>
+
+            <tbody>
+                <tr class="bg-secondary text-white">
+                    <th colspan="2">Other attributes</th>
+                </tr>
+            </tbody>
+            <tbody id="otherattributes">
+                {% for id, attribute in attributes %}
+                <tr
+                        {% if attribute.type=="mandatory" %} class="border-left border-warning " data-target="#mandatory"
+                        {% elseif attribute.type=="recommended" %} class="border-left border-info "data-target="#recommended" {% endif %}
+
+                        {% if attribute.value %} data-value="hasvalue" {% endif %}
+                >
+                    <td scope="row">
+                        {{ id }}
+                        <small>
+                            <code>
+                                <ul class="list-unstyled">
+                                    {% for name in attribute.name %}
+                                        <li class="text-nowrap">{{ name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </code>
+                        </small>
+                    </td>
+                    <td>
+                        {% if ';' in attribute.value %}
+                            <ul>
+                                {% for partial in attribute.value|split(';') %}
+                                    <li>
+                                        {{ partial }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            {{ attribute.value }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <hr>
+
+        <div>
+            <a data-toggle="collapse" href="#metadata"><h4 class="border-bottom border-light">IDP metadata variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="metadata" class="collapse">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>attribute</th>
+                        <th>value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in metadata_vars %}
+                        <tr>
+                            <td scope="row">
+                                {{ key }}
+                                <br>
+                            </td>
+                            <td>
+                                {% if key == "Meta-Small-Logo" %}
+                                    <img src="{{ value }}" style="max-height: 3rem;" alt="">
+                                {% else %}
+                                    {{ value }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" href="#shibboleth"><h4 class="border-bottom border-light">Shibboleth SP related variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="shibboleth" class="collapse">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>attribute</th>
+                        <th>value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in shibboleth_vars %}
+                        <tr>
+                            <td scope="row">
+                                {{ key }}
+                                <br>
+                            </td>
+                            <td>
+                                {{ value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" href="#assertions"><h4 class="border-bottom border-light">SAML assertions <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="assertions" class="collapse">
+                {% for key, assertion in assertion_urls %}
+                    <div>
+                        {{ key }}
+                    </div>
+                    <div>
+                        {{ assertion.url }}
+                    </div>
+                    <pre>
+                        <code class="xml">
+                            {{ assertion.xml }}
+                        </code>
+                    </pre>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <a class="border-bottom" data-toggle="collapse" href="#server"><h4 class="border-bottom border-light">$_SERVER variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="server" class="collapse">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>key</th>
+                        <th>value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in server %}
+                        <tr>
+                            <td scope="row">
+                                {{ key }}
+                                <br>
+                            </td>
+                            <td>
+                                {{ value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+     {% else %}
+        <h4 class="display-4 text-center">Welcome to</h4>
+        <h1 class="display-2 text-center"><strong>{{ brand }}</strong></h1>
+        <h4 class="display-4 text-center">attribute checker site.</h4>
+        <p class="mt-4 text-center">
+            To see your released attributes, please <a href="/Shibboleth.sso/Login"><i class="fa fa-sign-in"></i> log in.</a>
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="js/highlight.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('table#attributes tr').each(function () {
+                var target = $(this).data('target');
+                $(this).appendTo(target);
+                if (target == null && $(this).data('value') == 'hasvalue') {
+                    $(this).prependTo('#otherattributes');
+                }
+            });
+            $('.xml').each(function () {
+                var beauty = vkbeautify.xml($(this).text(), 2);
+                $(this).text(beauty);
+            });
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+
+
+{% endblock %}
+
