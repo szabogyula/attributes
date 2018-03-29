@@ -13,8 +13,7 @@ docker build -t attributes .
 
 # Configuration
 
-You can configure the brand and the logo, the shibboleth attribute-map.xml path, and the type of relevant the attributest
-that define the federation.
+You can configure the brand and the logo and the type of relevant the attributes those define the federation.
 
 ```yaml
 
