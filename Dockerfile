@@ -25,5 +25,5 @@ RUN cd /var/www/html && composer install
 # install the runner
 ADD docker-config/run.sh /run.sh
 
-EXPOSE 443
+EXPOSE 80 443
 CMD /run.sh

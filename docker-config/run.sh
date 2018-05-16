@@ -55,6 +55,14 @@ fi
 
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
+
+# NOSSL
+if [ -n "$NOSSL" ]; then
+    sed -i "s/VirtualHost \*:443/VirtualHost *:80/g" /etc/apache2/sites-enabled/default-ssl.conf
+    sed -i "s/SSL.*/# NOSSL/g"                       /etc/apache2/sites-enabled/default-ssl.conf
+    sed -i "s/%VIRTUAL_HOST%/$VIRTUAL_HOST/g"        /etc/apache2/sites-enabled/default-ssl.conf
+fi
+
 sed -i "s#%ENTITY_ID%#$ENTITY_ID#g"                                                 /etc/shibboleth/shibboleth2.xml
 sed -i "s#%SSO_ELEMENT%#$SSO_ELEMENT#g"                                             /etc/shibboleth/shibboleth2.xml
 sed -i "s#%SUPPORT_CONTACT%#$SUPPORT_CONTACT#g"                                     /etc/shibboleth/shibboleth2.xml

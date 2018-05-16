@@ -35,3 +35,4 @@ attributetypes:
 # running docker container
 
 You can use docker-compose, and read the .env.dist environment variables.
+
