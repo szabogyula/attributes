@@ -20,6 +20,11 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             entityID="%ENTITY_ID%"
             REMOTE_USER="eppn"
             metadataAttributePrefix="Meta-"
+            signing="true"
+            signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+            %AUTHN_CONTEXT_CLASS_REF_PARAMETER%
+            NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+
     >
 
         <!-- You should use secure cookies if at all possible.  See cookieProps in this Wiki article. -->
@@ -29,9 +34,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
             <!-- Triggers a login request directly to the TestShib IdP. -->
             <!-- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPServiceSSO -->
-            <SSO discoveryProtocol="SAMLDS" discoveryURL="%DISCOVERY_URL%">
-                SAML2
-            </SSO>
+            %SSO_ELEMENT%
 
             <!-- SAML and local-only logout. -->
             <!-- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPServiceLogout -->
@@ -62,21 +65,9 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
                 styleSheet="/shibboleth-sp/main.css"/>
 
         <!-- Loads and trusts a metadata file that describes only the Testshib IdP and how to communicate with it. -->
-        <!--
-        <MetadataProvider type="XML" uri="http://metadata.eduid.hu/current/href.xml"
-             backingFilePath="href.xml" reloadInterval="180000">
-            <MetadataFilter type="Signature" certificate="href-metadata-signer-2011.crt"/>
-        </MetadataProvider>
-        -->
         <MetadataProvider type="Chaining">
-            <MetadataProvider type="XML" url="%XML_METADATA_PROVIDER%"
-                              reloadInterval="1800">
-                <!--<MetadataFilter type="Signature" certificate="href-metadata-signer-2011.crt"/>-->
-            </MetadataProvider>
-            <MetadataProvider type="Dynamic" ignoreTransport="true">
-                <Subst>%DYNAMIC_METADATA_PROVIDER%</Subst>
-                <!--<MetadataFilter type="Signature" certificate="mdx-test-signer-2015.crt"/>-->
-            </MetadataProvider>
+            %XML_METADATA_PROVIDER_ELEMENT%
+            %DYNAMIC_METADATA_PROVIDER_ELEMENT%
         </MetadataProvider>
 
 
