@@ -53,6 +53,12 @@ if [ -n "$AUTHN_CONTEXT_CLASS_REF" ]; then
     export AUTHN_CONTEXT_CLASS_REF_PARAMETER=authnContextClassRef=\""$AUTHN_CONTEXT_CLASS_REF"\"
 fi
 
+# encryption
+export APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER=""
+if [ -n "$APPLICATION_DEFAULTS_ENCRYPTION" ]; then
+    export APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER=encryption=\""$APPLICATION_DEFAULTS_ENCRYPTION"\"
+fi
+
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 
@@ -73,6 +79,7 @@ sed -i "s#%DYNAMIC_METADATA_PROVIDER_ELEMENT%#$DYNAMIC_METADATA_PROVIDER_ELEMENT
 sed -i "s#%ATTRIBUTE_RESOLVERS%#$ATTRIBUTE_RESOLVERS#g"                             /etc/shibboleth/shibboleth2.xml
 
 sed -i "s#%AUTHN_CONTEXT_CLASS_REF_PARAMETER%#$AUTHN_CONTEXT_CLASS_REF_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
+sed -i "s#%APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%#$APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
 
 service shibd start
 

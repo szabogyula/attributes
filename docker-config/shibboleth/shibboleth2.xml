@@ -24,6 +24,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
             %AUTHN_CONTEXT_CLASS_REF_PARAMETER%
             NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+            %APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%
 
     >
 
