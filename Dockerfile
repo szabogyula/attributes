@@ -25,5 +25,7 @@ RUN cd /var/www/html && composer install
 # install the runner
 ADD docker-config/run.sh /run.sh
 
+HEALTHCHECK CMD curl http://localhost/Shibboleth.sso/Metadata
+
 EXPOSE 80 443
 CMD /run.sh
