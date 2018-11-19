@@ -3,7 +3,7 @@ FROM php:7.2.0-apache-stretch
 
 # install required packages
 RUN apt-get update \
-    && apt-get install -yq git libapache2-mod-shib2\
+    && apt-get install -yq git libapache2-mod-shib2 unzip\
     && rm -rf /var/lib/apt/lists/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -11,7 +11,7 @@ RUN apt-get update \
 ADD docker-config/shibboleth/shibboleth2.xml      /etc/shibboleth/
 ADD docker-config/shibboleth/attribute-configs    /etc/shibboleth/attribute-configs
 ADD docker-config/shibboleth/shibd.logger         /etc/shibboleth/
-ADD docker-config/shibboleth/cert                 /etc/shibboleth/
+ADD docker-config/shibboleth/cert                 /etc/shibboleth/cert
 
 #configure apache
 ADD docker-config/apache_cert/*                  /etc/apache2/cert/
