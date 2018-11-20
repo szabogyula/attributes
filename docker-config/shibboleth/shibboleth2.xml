@@ -48,7 +48,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             -->
 
             <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
-            <Handler type="MetadataGenerator" Location="/Metadata" signing="false"/>
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="false" %METADATA_NOSSL_ENDPOINTS_PARAMETER% />
 
             <!-- Status reporting service. -->
             <Handler type="Status" Location="/Status" acl="127.0.0.1"/>

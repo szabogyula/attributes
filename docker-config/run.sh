@@ -68,6 +68,11 @@ if [ -n "$NOSSL" ]; then
     sed -i "s/SSL.*/# NOSSL/g"                       /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/%VIRTUAL_HOST%/$VIRTUAL_HOST/g"        /etc/apache2/sites-enabled/default-ssl.conf
 fi
+# METADATA_NOSSL_ENDPOINTS
+export METADATA_NOSSL_ENDPOINTS_PARAMETER=""
+if [ -n "$METADATA_NOSSL_ENDPOINTS" ]; then
+    export METADATA_NOSSL_ENDPOINTS_PARAMETER=http=\"true\"
+fi
 
 sed -i "s#%ENTITY_ID%#$ENTITY_ID#g"                                                 /etc/shibboleth/shibboleth2.xml
 sed -i "s#%SSO_ELEMENT%#$SSO_ELEMENT#g"                                             /etc/shibboleth/shibboleth2.xml
@@ -80,6 +85,8 @@ sed -i "s#%ATTRIBUTE_RESOLVERS%#$ATTRIBUTE_RESOLVERS#g"                         
 
 sed -i "s#%AUTHN_CONTEXT_CLASS_REF_PARAMETER%#$AUTHN_CONTEXT_CLASS_REF_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
 sed -i "s#%APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%#$APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
+
+sed -i "s#%METADATA_NOSSL_ENDPOINTS_PARAMETER%#$METADATA_NOSSL_ENDPOINTS_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
 
 service shibd start
 

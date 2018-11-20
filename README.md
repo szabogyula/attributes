@@ -64,6 +64,9 @@ ATTRIBUTE_RESOLVERS=<AttributeResolver type="SimpleAggregation" attributeId="pri
 # optional no ssl support, no apache certs...
 # NOSSL=true
 
+# optional create http endpoints in generated metadata instead of https
+# METADATA_NOSSL_ENDPOINTS=true
+
 # optional assertion encryption
 # APPLICATION_DEFAULTS_ENCRYPTION=true
 ```
