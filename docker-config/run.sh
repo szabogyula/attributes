@@ -67,11 +67,13 @@ if [ -n "$NOSSL" ]; then
     sed -i "s/VirtualHost \*:443/VirtualHost *:80/g" /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/SSL.*/# NOSSL/g"                       /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/%VIRTUAL_HOST%/$VIRTUAL_HOST/g"        /etc/apache2/sites-enabled/default-ssl.conf
+    sed -i "s/:443//g"                               /etc/apache2/sites-enabled/default-ssl.conf
+    sed -i "s#https://#http://#g"                    /etc/apache2/sites-enabled/default-ssl.conf
 fi
 # METADATA_NOSSL_ENDPOINTS
 export METADATA_NOSSL_ENDPOINTS_PARAMETER=""
 if [ -n "$METADATA_NOSSL_ENDPOINTS" ]; then
-    export METADATA_NOSSL_ENDPOINTS_PARAMETER=http=\"true\"
+    export METADATA_NOSSL_ENDPOINTS_PARAMETER="http=\"true\" https=\"false\""
 fi
 
 sed -i "s#%ENTITY_ID%#$ENTITY_ID#g"                                                 /etc/shibboleth/shibboleth2.xml
