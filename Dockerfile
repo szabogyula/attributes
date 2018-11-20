@@ -10,6 +10,7 @@ RUN apt-get update \
 # configure shibboleth sp
 ADD docker-config/shibboleth/shibboleth2.xml      /etc/shibboleth/
 ADD docker-config/shibboleth/attribute-configs    /etc/shibboleth/attribute-configs
+RUN rm -rf /etc/shibboleth/attribute-map.xml /etc/shibboleth/attribute-policy.xml
 ADD docker-config/shibboleth/shibd.logger         /etc/shibboleth/
 ADD docker-config/shibboleth/cert                 /etc/shibboleth/cert
 
