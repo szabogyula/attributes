@@ -71,7 +71,7 @@ if [ -n "$NOSSL" ]; then
     sed -i "s#https://#http://#g"                    /etc/apache2/sites-enabled/default-ssl.conf
 fi
 # METADATA_NOSSL_ENDPOINTS
-export METADATA_NOSSL_ENDPOINTS_PARAMETER=""
+export METADATA_NOSSL_ENDPOINTS_PARAMETER="http=\"false\" https=\"true\""
 if [ -n "$METADATA_NOSSL_ENDPOINTS" ]; then
     export METADATA_NOSSL_ENDPOINTS_PARAMETER="http=\"true\" https=\"false\""
 fi
