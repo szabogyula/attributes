@@ -61,6 +61,9 @@ ATTRIBUTE_RESOLVERS=<AttributeResolver type="SimpleAggregation" attributeId="pri
 # optional
 # AUTHN_CONTEXT_CLASS_REF=http://mfa.eduteams.org/assurance/loa3
 
+# optional if you run your sp behind ssl terminator proxy, like jwilder/nginx-proxy
+# BEHIND_SSL_TERMINATOR_PROXY=true
+
 # optional no ssl support, no apache certs...
 # NOSSL=true
 

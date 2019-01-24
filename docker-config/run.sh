@@ -61,14 +61,25 @@ fi
 
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
+# BEHIND_SSL_TERMINATOR_PROXY
+if [ -n "$BEHIND_SSL_TERMINATOR_PROXY" ]; then
+    export NOSSL=true;
+    echo "BEHIND_SSL_TERMINATOR_PROXY";
+fi
 
 # NOSSL
-if [ -n "$NOSSL" ] && [ "$NOSSL" = "true" ]; then
+if [ -n "$NOSSL" ]; then
+    echo "NOSSL";
     sed -i "s/VirtualHost \*:443/VirtualHost *:80/g" /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/SSL.*/# NOSSL/g"                       /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/%VIRTUAL_HOST%/$VIRTUAL_HOST/g"        /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/:443//g"                               /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s#https://#http://#g"                    /etc/apache2/sites-enabled/default-ssl.conf
+fi
+
+# BEHIND_SSL_TERMINATOR_PROXY
+if [ -n "$BEHIND_SSL_TERMINATOR_PROXY" ]; then
+    sed -i "s#http://#https://#g"       /etc/apache2/sites-enabled/default-ssl.conf
 fi
 
 # METADATA_NOSSL_ENDPOINTS
