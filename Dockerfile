@@ -1,4 +1,4 @@
-# eduid/attributes
+# eduid/attribute
 FROM php:7.2.0-apache-stretch
 
 # install required packages
@@ -28,5 +28,8 @@ ADD docker-config/run.sh /run.sh
 
 HEALTHCHECK CMD curl http://localhost/Shibboleth.sso/Metadata
 
+RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
+ENV APACHE_LOG_DIR /var/log/apache2
+
 EXPOSE 80 443
-CMD /run.sh
+CMD /usr/local/bin/ep -v /etc/apache2/sites-available/default-ssl.conf -- /run.sh

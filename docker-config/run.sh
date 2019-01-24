@@ -63,13 +63,14 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 
 # NOSSL
-if [ -n "$NOSSL" ]; then
+if [ -n "$NOSSL" ] && [ "$NOSSL" = "true" ]; then
     sed -i "s/VirtualHost \*:443/VirtualHost *:80/g" /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/SSL.*/# NOSSL/g"                       /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/%VIRTUAL_HOST%/$VIRTUAL_HOST/g"        /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s/:443//g"                               /etc/apache2/sites-enabled/default-ssl.conf
     sed -i "s#https://#http://#g"                    /etc/apache2/sites-enabled/default-ssl.conf
 fi
+
 # METADATA_NOSSL_ENDPOINTS
 export METADATA_NOSSL_ENDPOINTS_PARAMETER="http=\"false\" https=\"true\""
 if [ -n "$METADATA_NOSSL_ENDPOINTS" ]; then
