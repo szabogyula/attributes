@@ -56,7 +56,8 @@ XML_METADATA_PROVIDER=https://metadata.eduid.hu/current/href-pending.xml
 DYNAMIC_METADATA_PROVIDER=http://mdx.eduid.hu/entities/$entityID
 
 
-ATTRIBUTE_RESOLVERS=<AttributeResolver type="SimpleAggregation" attributeId="principalName" format="urn:oid:1.3.6.1.4.1.5923.1.1.1.6"><Entity>https://hexaa.eduid.hu/hexaa</Entity><Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" FriendlyName="eduPersonEntitlement"/></AttributeResolver>
+# optional
+# ATTRIBUTE_RESOLVERS=<AttributeResolver type="SimpleAggregation" attributeId="principalName" format="urn:oid:1.3.6.1.4.1.5923.1.1.1.6"><Entity>https://hexaa.eduid.hu/hexaa</Entity><Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" FriendlyName="eduPersonEntitlement"/></AttributeResolver>
 
 # optional
 # AUTHN_CONTEXT_CLASS_REF=http://mfa.eduteams.org/assurance/loa3

@@ -32,4 +32,7 @@ RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases
 ENV APACHE_LOG_DIR /var/log/apache2
 
 EXPOSE 80 443
-CMD /usr/local/bin/ep -v /etc/apache2/sites-available/default-ssl.conf -- /run.sh
+CMD /usr/local/bin/ep -v \
+      /etc/apache2/sites-available/default-ssl.conf \
+      /etc/shibboleth/shibboleth2.xml \
+      -- /run.sh

@@ -10,11 +10,6 @@ if [ -z "$SUPPORT_CONTACT" ]; then
     exit 1
 fi
 
-if [ -z "$ATTRIBUTE_RESOLVERS" ]; then
-    echo "Need to set ATTRIBUTE_RESOLVERS"
-    exit 1
-fi
-
 if [ -n "$DISCOVERY_URL" ]; then
     export SSO_ELEMENT="<SSO discoveryProtocol=\"SAMLDS\" discoveryURL=\"$DISCOVERY_URL\">SAML2</SSO>"
 
@@ -94,8 +89,6 @@ sed -i "s#%SUPPORT_CONTACT%#$SUPPORT_CONTACT#g"                                 
 
 sed -i "s#%XML_METADATA_PROVIDER_ELEMENT%#$XML_METADATA_PROVIDER_ELEMENT#g"         /etc/shibboleth/shibboleth2.xml
 sed -i "s#%DYNAMIC_METADATA_PROVIDER_ELEMENT%#$DYNAMIC_METADATA_PROVIDER_ELEMENT#g" /etc/shibboleth/shibboleth2.xml
-
-sed -i "s#%ATTRIBUTE_RESOLVERS%#$ATTRIBUTE_RESOLVERS#g"                             /etc/shibboleth/shibboleth2.xml
 
 sed -i "s#%AUTHN_CONTEXT_CLASS_REF_PARAMETER%#$AUTHN_CONTEXT_CLASS_REF_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
 sed -i "s#%APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%#$APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
