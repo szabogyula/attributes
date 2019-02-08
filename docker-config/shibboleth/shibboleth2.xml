@@ -83,7 +83,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
         <AttributeResolver type="Chaining">
             <AttributeResolver type="Query"/>
-            ${ATTRIBUTE_RESOLVERS:-}
+            ${ATTRIBUTE_RESOLVERS}
         </AttributeResolver>
 
         <AttributeFilter type="XML" validate="true" path="attribute-configs/attribute-policy.xml"/>
