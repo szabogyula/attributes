@@ -1,14 +1,4 @@
 <!--
-
-For using with heroku PHP application: configure this file as you need it and put it to your application /app/config folder, and use web.sh in your Procfile.
-
-This is an example shibboleth2.xml generated for you by TestShib.  It's reduced and recommended
-specifically for testing.  You don't need to change anything, but you may want to explore the file
-to learn about how your SP works.  Uncomment attributes in your attribute-map.xml file to test them.
-
-If you want to test advanced functionality, start from the distribution shibboleth2.xml and add the
-MetadataProvider, the right entityID, and a properly configured SSO element.  More information:
-
 https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 -->
 
@@ -17,15 +7,18 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
     <!-- The entityID is the name TestShib made for your SP. -->
     <ApplicationDefaults
-            entityID="${ENTITY_ID}"
+            {{ if getenv "ENTITY_ID" }}
+            entityID="{{ getenv "ENTITY_ID" }}"
+            {{ else }}
+            {{ getv "CRIT ENTITY_ID required." }}
+            {{ end }}
             REMOTE_USER="eppn"
             metadataAttributePrefix="Meta-"
             signing="true"
             signingAlg="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
-            authnContextClassRef="${AUTHN_CONTEXT_CLASS_REF:-\}"
+            {{ if getenv "AUTHN_CONTEXT_CLASS_REF" }} authnContextClassRef="{{ getenv "AUTHN_CONTEXT_CLASS_REF" }}" {{ end }}
             NameIDFormat="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
-            %APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%
-            encryption="${APPLICATION_DEFAULTS_ENCRYPTION:-\}"
+            {{ if getenv "APPLICATION_DEFAULTS_ENCRYPTION" }} encryption="{{ getenv "APPLICATION_DEFAULTS_ENCRYPTION" }}" {{ end }}
 
     >
 
@@ -36,7 +29,13 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
             <!-- Triggers a login request directly to the TestShib IdP. -->
             <!-- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPServiceSSO -->
-            %SSO_ELEMENT%
+            {{ if getenv "DISCOVERY_URL" }}
+            <SSO discoveryProtocol="SAMLDS" discoveryURL="{{ getenv "DISCOVERY_URL" }}">SAML2</SSO>
+            {{ else if getenv "IDP_ENTITY_ID" }}
+            <SSO entityID="{{ getenv "IDP_ENTITY_ID" }}">SAML2</SSO>
+            {{ else }}
+            {{ getv "CRIT One of IDP_ENTITY_ID and DISCOVERY_URL must be exists" }}
+            {{ end }}
 
             <!-- SAML and local-only logout. -->
             <!-- https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPServiceLogout -->
@@ -49,7 +48,13 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             -->
 
             <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
-            <Handler type="MetadataGenerator" Location="/Metadata" signing="false" %METADATA_NOSSL_ENDPOINTS_PARAMETER% />
+            <Handler type="MetadataGenerator" Location="/Metadata" signing="false"
+               {{ if getenv "METADATA_NOSSL_ENDPOINTS" }}
+               http="true" https="false"
+               {{ else }}
+               http="false" https="true"
+               {{ end }}
+            />
 
             <!-- Status reporting service. -->
             <Handler type="Status" Location="/Status" acl="127.0.0.1"/>
@@ -63,13 +68,24 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
         </Sessions>
 
         <!-- Error pages to display to yourself if something goes horribly wrong. -->
-        <Errors supportContact="%SUPPORT_CONTACT%" logoLocation="/shibboleth-sp/logo.jpg"
+        <Errors supportContact="{{ getenv "SUPPORT_CONTACT" }}" logoLocation="/shibboleth-sp/logo.jpg"
                 styleSheet="/shibboleth-sp/main.css"/>
 
         <!-- Loads and trusts a metadata file that describes only the Testshib IdP and how to communicate with it. -->
         <MetadataProvider type="Chaining">
-            %XML_METADATA_PROVIDER_ELEMENT%
-            %DYNAMIC_METADATA_PROVIDER_ELEMENT%
+          {{ if getenv "XML_METADATA_PROVIDER" }}
+          <MetadataProvider type="XML" url="{{ getenv "XML_METADATA_PROVIDER" }}" reloadInterval="1800">
+          <!--<MetadataFilter type=\"Signature\" certificate=\"href-metadata-signer-2011.crt\"/>-->
+          </MetadataProvider> 
+          {{ else if getenv "DYNAMIC_METADATA_PROVIDER" }}
+          <MetadataProvider type="Dynamic" ignoreTransport="true">
+            <Subst>{{ getenv "DYNAMIC_METADATA_PROVIDER" }}\$entityID</Subst>
+            <!--<MetadataFilter type=\"Signature\" certificate=\"mdx-test-signer-2015.crt\"/>-->
+          </MetadataProvider>
+          {{ else }}
+            {{ getv "CRIT One of XML_METADATA_PROVIDER and DYNAMIC_METADATA_PROVIDER must be exists" }}
+          {{ end }}
+
         </MetadataProvider>
 
 
@@ -84,7 +100,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
         <AttributeResolver type="Chaining">
             <AttributeResolver type="Query"/>
-            ${ATTRIBUTE_RESOLVERS}
+            {{ getenv "ATTRIBUTE_RESOLVERS" }}
         </AttributeResolver>
 
         <AttributeFilter type="XML" validate="true" path="attribute-configs/attribute-policy.xml"/>

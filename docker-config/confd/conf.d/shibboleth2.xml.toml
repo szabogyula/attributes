@@ -1,0 +1,4 @@
+[template]
+src = "shibboleth2.xml.tmpl"
+dest = "/etc/shibboleth/shibboleth2.xml"
+

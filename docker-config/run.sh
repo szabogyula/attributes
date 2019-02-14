@@ -95,8 +95,8 @@ sed -i "s#%APPLICATION_DEFAULTS_ENCRYPTION_PARAMETER%#$APPLICATION_DEFAULTS_ENCR
 
 sed -i "s#%METADATA_NOSSL_ENDPOINTS_PARAMETER%#$METADATA_NOSSL_ENDPOINTS_PARAMETER#g" /etc/shibboleth/shibboleth2.xml
 
-service shibd start
 
 source /etc/apache2/envvars
 
-exec apache2 -D FOREGROUND
+/usr/local/bin/confd -onetime -backend env
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
