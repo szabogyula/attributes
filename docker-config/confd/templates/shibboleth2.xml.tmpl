@@ -4,6 +4,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
           clockSkew="1800">
+    <UnixListener address="/var/run/shibd.sock"/>
 
     <!-- The entityID is the name TestShib made for your SP. -->
     <ApplicationDefaults
@@ -120,3 +121,4 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
     <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
 
 </SPConfig>
+
