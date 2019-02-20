@@ -11,7 +11,6 @@ RUN apt-get update \
 # confd ADD docker-config/shibboleth/shibboleth2.xml      /etc/shibboleth/
 ADD docker-config/shibboleth/attribute-configs    /etc/shibboleth/attribute-configs
 RUN rm -rf /etc/shibboleth/attribute-map.xml /etc/shibboleth/attribute-policy.xml
-ADD docker-config/shibboleth/shibd.logger         /etc/shibboleth/
 ADD docker-config/shibboleth/cert                 /etc/shibboleth/cert
 
 #configure apache
@@ -32,6 +31,8 @@ RUN curl -sLo /usr/local/bin/confd https://github.com/kelseyhightower/confd/rele
 ADD docker-config/confd /etc/confd
 
 COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+ENV LOGLEVEL INFO
 
 HEALTHCHECK CMD curl http://localhost/Shibboleth.sso/Metadata
 EXPOSE 80 443

@@ -73,4 +73,7 @@ DYNAMIC_METADATA_PROVIDER=http://mdx.eduid.hu/entities/$entityID
 
 # optional assertion encryption
 # APPLICATION_DEFAULTS_ENCRYPTION=true
+
+# optional shibboleth log level
+# LOGLEVEL=INFO
 ```

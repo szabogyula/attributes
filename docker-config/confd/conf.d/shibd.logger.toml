@@ -1,0 +1,4 @@
+[template]
+src = "shibd.logger.tmpl"
+dest = "/etc/shibboleth/shibd.logger"
+
