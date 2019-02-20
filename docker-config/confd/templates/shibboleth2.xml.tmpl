@@ -7,8 +7,9 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
     <!-- The entityID is the name TestShib made for your SP. -->
     <ApplicationDefaults
-            {{ if getenv "ENTITY_ID" }}
-            entityID="{{ getenv "ENTITY_ID" }}"
+            {{ $entity_id := getenv "ENTITY_ID" }}
+            {{ if ne $entity_id "None" }}
+            entityID="{{ $entity_id }}"
             {{ else }}
             {{ getv "CRIT ENTITY_ID required." }}
             {{ end }}
@@ -73,13 +74,15 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
         <!-- Loads and trusts a metadata file that describes only the Testshib IdP and how to communicate with it. -->
         <MetadataProvider type="Chaining">
-          {{ if getenv "XML_METADATA_PROVIDER" }}
+          {{ $xml_metadata_provider := getenv "XML_METADATA_PROVIDER" }}
+          {{ $dynamic_metadata_provider := getenv "DYNAMIC_METADATA_PROVIDER" }}
+          {{ if ne $xml_metadata_provider "None" }}
           <MetadataProvider type="XML" url="{{ getenv "XML_METADATA_PROVIDER" }}" reloadInterval="1800">
           <!--<MetadataFilter type=\"Signature\" certificate=\"href-metadata-signer-2011.crt\"/>-->
           </MetadataProvider> 
-          {{ else if getenv "DYNAMIC_METADATA_PROVIDER" }}
+          {{ else if ne $dynamic_metadata_provider "None" }}
           <MetadataProvider type="Dynamic" ignoreTransport="true">
-            <Subst>{{ getenv "DYNAMIC_METADATA_PROVIDER" }}\$entityID</Subst>
+            <Subst>{{ $dynamic_metadata_provider }}\$entityID</Subst>
             <!--<MetadataFilter type=\"Signature\" certificate=\"mdx-test-signer-2015.crt\"/>-->
           </MetadataProvider>
           {{ else }}
