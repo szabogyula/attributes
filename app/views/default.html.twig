@@ -173,10 +173,12 @@
 
         <div>
             <a class="border-bottom" data-toggle="collapse" href="#shibboleth2_xml"><h4 class="border-bottom border-light">Shibboleth configuration <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="server" class="collapse">
-            <div class="code">
-              {{ shibboleth_xml }}
-            </div>
+            <div id="shibboleth2_xml" class="collapse">
+              <pre>
+                <code class="xml">
+                  {{ shibboleth_xml }}
+                </code>
+              </pre>
             </div>
         </div>
      {% else %}
