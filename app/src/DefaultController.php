@@ -72,16 +72,18 @@ class DefaultController implements ControllerProviderInterface
             }
 
         }
+        $shibbolethXml = file_get_contents('/etc/shibboleth/shibboleth2.xml');
         return $app['twig']->render('default.html.twig', array(
             'brand'           => $app['config']['brand'],
             'logo'            => $app['config']['logo'],
             'attributes'      => $map,
             'logged_in'       => array_key_exists("Shib-Session-ID", $_SERVER) && $_SERVER["Shib-Session-ID"],
             'assertions'      => $assertions,
-            'assertion_urls'   => $assertionUrls,
+            'assertion_urls'  => $assertionUrls,
             'shibboleth_vars' => $shibbolethVars,
             'metadata_vars'   => $metadataVars,
-            'server'   => $_SERVER,
+            'server'          => $_SERVER,
+            'shibboleth_xml'  => $shibbolethXml,
         ));
     }
 }
