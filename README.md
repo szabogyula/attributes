@@ -54,6 +54,8 @@ SUPPORT_CONTACT=info@eduteams.org
 XML_METADATA_PROVIDER=https://metadata.eduid.hu/current/href-pending.xml
 # optional
 DYNAMIC_METADATA_PROVIDER=http://mdx.eduid.hu/entities/$entityID
+# optional
+MDQ_METADATA_PROVIDER=https://mdx.eduid.hu/entities
 
 
 # optional

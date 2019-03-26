@@ -77,6 +77,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
         <MetadataProvider type="Chaining">
           {{ $xml_metadata_provider := getenv "XML_METADATA_PROVIDER" }}
           {{ $dynamic_metadata_provider := getenv "DYNAMIC_METADATA_PROVIDER" }}
+          {{ $mdq_metadata_provider := getenv "MDQ_METADATA_PROVIDER" }}
           {{ if ne $xml_metadata_provider "None" }}
           <MetadataProvider type="XML" url="{{ getenv "XML_METADATA_PROVIDER" }}" reloadInterval="1800">
           <!--<MetadataFilter type=\"Signature\" certificate=\"href-metadata-signer-2011.crt\"/>-->
@@ -86,8 +87,10 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             <Subst>{{ $dynamic_metadata_provider }}\$entityID</Subst>
             <!--<MetadataFilter type=\"Signature\" certificate=\"mdx-test-signer-2015.crt\"/>-->
           </MetadataProvider>
+          {{ else if ne $mdq_metadata_provider "None" }}
+          <MetadataProvider type="MDQ" ignoreTransport="true" baseUrl="{{ $mdq_metadata_provider }}"\>
           {{ else }}
-            {{ getv "CRIT One of XML_METADATA_PROVIDER and DYNAMIC_METADATA_PROVIDER must be exists" }}
+            {{ getv "CRIT One of XML_METADATA_PROVIDER and DYNAMIC_METADATA_PROVIDER and MDQ_METADATA_PROVIDER must be exists" }}
           {{ end }}
 
         </MetadataProvider>

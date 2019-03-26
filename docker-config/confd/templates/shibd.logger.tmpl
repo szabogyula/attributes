@@ -27,7 +27,7 @@ log4j.category.Shibboleth.RequestMapper={{ getenv "LOGLEVEL" }}
 #log4j.category.XMLTooling.StorageService=DEBUG
 
 # logs XML being signed or verified if set to DEBUG
-log4j.category.XMLTooling.Signature.Debugger={{ getenv "LOGLEVEL" }}, sig_log
+log4j.category.XMLTooling.Signature.Debugger=INFO, sig_log
 log4j.additivity.XMLTooling.Signature.Debugger=false
 
 # the tran log blocks the "default" appender(s) at runtime
