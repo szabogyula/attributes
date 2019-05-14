@@ -49,6 +49,8 @@ DISCOVERY_URL=https://ds-pending.eduid.hu/role/idp.ds
 # IDP_ENTITY_ID=https://l-aai.sztaki.hu/idp
 
 SUPPORT_CONTACT=info@eduteams.org
+SUPPORT_CONTACT_SURNAME=Eduteams
+SUPPORT_CONTACT_GIVEN_NAME=Support
 
 # optional
 XML_METADATA_PROVIDER=https://metadata.eduid.hu/current/href-pending.xml
