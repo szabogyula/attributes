@@ -80,4 +80,7 @@ MDQ_METADATA_PROVIDER=https://mdx.eduid.hu/entities
 
 # optional shibboleth log level
 # LOGLEVEL=INFO
+
+# research-and-scolarship entity attribute
+# ENTITYATTRIBUTE_RNS=true
 ```

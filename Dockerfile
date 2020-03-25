@@ -25,8 +25,9 @@ RUN cd /var/www/html && composer install
 
 # install the runner
 ADD docker-config/start.sh /start.sh
+ADD tools/confd-0.16.0-linux-amd64 /usr/local/bin/confd
 
-RUN curl -sLo /usr/local/bin/confd https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 && chmod +x /usr/local/bin/confd
+RUN chmod +x /usr/local/bin/confd
 
 ADD docker-config/confd /etc/confd
 
