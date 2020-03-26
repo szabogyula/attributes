@@ -1,5 +1,5 @@
 # szabogyula/attribute
-FROM php:7.2.0-apache-stretch
+FROM php:7.2-apache-stretch
 
 # install required packages
 RUN apt-get update \
