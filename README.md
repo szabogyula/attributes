@@ -5,6 +5,8 @@ IdP and Attribute Authority attribute release checker app.
 Very simple php silex app, shibboleth secured service. After login it shows the attributes and values what IdP and
 Attribute Authorities released.
 
+There is a strict authorization url in /strict where is no lazy session.
+
 # hub.docker.com
 
 https://hub.docker.com/r/szabogyula/attributes
@@ -81,6 +83,6 @@ MDQ_METADATA_PROVIDER=https://mdx.eduid.hu/entities
 # optional shibboleth log level
 # LOGLEVEL=INFO
 
-# research-and-scolarship entity attribute
+# optional research-and-scolarship entity attribute
 # ENTITYATTRIBUTE_RNS=true
 ```

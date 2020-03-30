@@ -23,6 +23,13 @@
           ShibRequestSetting exportAssertion true
           Require shibboleth
 	</Directory>
+	<Directory /var/www/html/web/strict>
+	  AllowOverride All
+          AuthType Shibboleth
+          ShibRequestSetting requireSession true
+          ShibRequestSetting exportAssertion true
+          Require shibboleth
+	</Directory>
 
 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 	# error, crit, alert, emerg.
