@@ -76,6 +76,7 @@ class DefaultController implements ControllerProviderInterface
         return $app['twig']->render('default.html.twig', array(
             'brand'           => $app['config']['brand'],
             'logo'            => $app['config']['logo'],
+            'logo_url'        => getenv("LOGO_URL"),
             'attributes'      => $map,
             'logged_in'       => array_key_exists("Shib-Session-ID", $_SERVER) && $_SERVER["Shib-Session-ID"],
             'assertions'      => $assertions,

@@ -184,6 +184,9 @@
      {% else %}
         <h4 class="display-4 text-center">Welcome to</h4>
         <h1 class="display-2 text-center"><strong>{{ brand }}</strong></h1>
+        {% if logo_url %}
+        <div class="text-center"><img style="width: 110px;" src="{{ logo_url }}"></div>
+        {% endif %}
         <h4 class="display-4 text-center">attribute checker site.</h4>
         <p class="mt-4 text-center">
             To see your released attributes, please <a href="/Shibboleth.sso/Login"><i class="fa fa-sign-in"></i> log in.</a>

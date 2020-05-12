@@ -62,16 +62,14 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
                     <md:SurName>{{ getenv "SUPPORT_CONTACT_SURNAME" }}</md:SurName>
                     <md:EmailAddress>{{ getenv "SUPPORT_CONTACT" }}</md:EmailAddress>
                </md:ContactPerson>
-
-               <mdui:UIInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+               <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
                    <mdui:DisplayName xml:lang="en">{{ getenv "ENTITY_ID" }}</mdui:DisplayName>
                    <mdui:Description xml:lang="en">{{ getenv "ENTITY_ID" }}</mdui:Description>
                    <mdui:InformationURL xml:lang="en">{{ getenv "ENTITY_ID" }}</mdui:InformationURL>
                    <mdui:PrivacyStatementURL xml:lang="en">{{ getenv "ENTITY_ID" }}</mdui:PrivacyStatementURL>
                    {{ if getenv "LOGO_URL" }}
-                       <mdui:Logo width="100" height="84" xml:lang="en">{{ getenv "LOGO_URL" }}</mdui:Logo>
+                       <mdui:Logo height="110" width="200" xml:lang="en">{{ getenv "LOGO_URL" }}</mdui:Logo>
                    {{ end }}
-                 <mdui:InformationURL>https://rr.aai.niif.hu/about</mdui:InformationURL>
                </mdui:UIInfo>
                {{ if getenv "ENTITYATTRIBUTE_RNS" }}
                <mdattr:EntityAttributes xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute">
