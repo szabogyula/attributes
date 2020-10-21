@@ -4,66 +4,68 @@
     {% if logged_in %}
 
         <h2>user attributes</h2>
-        <table class="table table-responsive" id="attributes">
-            <thead>
-            <tr>
-                <th>name, ids</th>
-                <th>value</th>
-            </tr>
-            </thead>
-            <tbody id="mandatory">
-                <tr class="bg-warning">
-                    <th colspan="2" >Mandatory attributes</th>
+        <div class="table-responsive">
+            <table class="table" id="attributes">
+                <thead>
+                <tr>
+                    <th>name, ids</th>
+                    <th>value</th>
                 </tr>
-            </tbody>
-            <tbody id="recommended">
-                <tr class="bg-info text-white">
-                    <th colspan="2">Recommended attributes</th>
-                </tr>
-            </tbody>
+                </thead>
+                <tbody id="mandatory">
+                    <tr class="bg-warning">
+                        <th colspan="2" >Mandatory attributes</th>
+                    </tr>
+                </tbody>
+                <tbody id="recommended">
+                    <tr class="bg-info text-white">
+                        <th colspan="2">Recommended attributes</th>
+                    </tr>
+                </tbody>
 
-            <tbody>
-                <tr class="bg-secondary text-white">
-                    <th colspan="2">Other attributes</th>
-                </tr>
-            </tbody>
-            <tbody id="otherattributes">
-                {% for id, attribute in attributes %}
-                <tr
-                        {% if attribute.type=="mandatory" %} class="border-left border-warning " data-target="#mandatory"
-                        {% elseif attribute.type=="recommended" %} class="border-left border-info "data-target="#recommended" {% endif %}
+                <tbody>
+                    <tr class="bg-secondary text-white">
+                        <th colspan="2">Other attributes</th>
+                    </tr>
+                </tbody>
+                <tbody id="otherattributes">
+                    {% for id, attribute in attributes %}
+                    <tr
+                            {% if attribute.type=="mandatory" %} class="border-left border-warning " data-target="#mandatory"
+                            {% elseif attribute.type=="recommended" %} class="border-left border-info "data-target="#recommended" {% endif %}
 
-                        {% if attribute.value %} data-value="hasvalue" {% endif %}
-                >
-                    <td scope="row">
-                        {{ id }}
-                        <small>
-                            <code>
-                                <ul class="list-unstyled">
-                                    {% for name in attribute.name %}
-                                        <li class="text-nowrap">{{ name }}</li>
+                            {% if attribute.value %} data-value="hasvalue" {% endif %}
+                    >
+                        <td scope="row">
+                            {{ id }}
+                            <small>
+                                <code>
+                                    <ul class="list-unstyled">
+                                        {% for name in attribute.name %}
+                                            <li class="text-nowrap">{{ name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </code>
+                            </small>
+                        </td>
+                        <td>
+                            {% if ';' in attribute.value %}
+                                <ul>
+                                    {% for partial in attribute.value|split(';') %}
+                                        <li>
+                                            {{ partial }}
+                                        </li>
                                     {% endfor %}
                                 </ul>
-                            </code>
-                        </small>
-                    </td>
-                    <td>
-                        {% if ';' in attribute.value %}
-                            <ul>
-                                {% for partial in attribute.value|split(';') %}
-                                    <li>
-                                        {{ partial }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            {{ attribute.value }}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                            {% else %}
+                                {{ attribute.value }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <hr>
 
