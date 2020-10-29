@@ -85,4 +85,7 @@ MDQ_METADATA_PROVIDER=https://mdx.eduid.hu/entities
 
 # optional research-and-scolarship entity attribute
 # ENTITYATTRIBUTE_RNS=true
+
+# optional requested attribute in metadata
+# REQUESTED_ATTRIBUTE=aat_id
 ```

@@ -158,6 +158,9 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
                <md:RequestedAttribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.16" FriendlyName="orcid"/>
                <!-- SSH Public Key -->
                <md:RequestedAttribute Name="urn:oid:1.3.6.1.4.1.24552.500.1.1.1.13" FriendlyName="sshPublicKey"/>
+               {{ if getenv "REQUESTED_ATTRIBUTE" }}
+                 <md:RequestedAttribute Name="{{ getenv "REQUESTED_ATTRIBUTE" }}"/>
+               {{ end }}
                {{ end }}
             </Handler>
 
