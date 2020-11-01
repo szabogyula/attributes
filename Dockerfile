@@ -8,8 +8,6 @@ RUN apt-get update \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # configure shibboleth sp
-ADD docker-config/shibboleth/attribute-configs    /etc/shibboleth/attribute-configs
-RUN rm -rf /etc/shibboleth/attribute-map.xml /etc/shibboleth/attribute-policy.xml
 ADD docker-config/shibboleth/cert                 /etc/shibboleth/cert
 
 #configure apache

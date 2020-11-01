@@ -43,7 +43,7 @@ class DefaultController implements ControllerProviderInterface
         $assertions = array();
         $assertions[] = '';
 
-        $xmlfile = '/etc/shibboleth/attribute-configs/attribute-map.xml';
+        $xmlfile = '/etc/shibboleth/attribute-map.xml';
 
         $attributeMap = new AttributeMap($xmlfile, $app['config']['attributetypes']);
         $map = $attributeMap->getMapping();

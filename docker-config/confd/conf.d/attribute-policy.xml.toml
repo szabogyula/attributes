@@ -1,0 +1,4 @@
+[template]
+src = "attribute-policy.xml.tmpl"
+dest = "/etc/shibboleth/attribute-policy.xml"
+

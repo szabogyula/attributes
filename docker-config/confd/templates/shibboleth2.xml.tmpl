@@ -203,7 +203,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
 
 
         <!-- Attribute and trust options you shouldn't need to change. -->
-        <AttributeExtractor type="XML" validate="true" path="attribute-configs/attribute-map.xml"/>
+        <AttributeExtractor type="XML" validate="true" path="attribute-map.xml"/>
         <AttributeExtractor type="Metadata" errorURL="errorURL" DisplayName="displayName"
                             InformationURL="informationURL" PrivacyStatementURL="privacyStatementURL"
                             OrganizationURL="organizationURL">
@@ -216,7 +216,7 @@ https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPConfiguration
             {{ getenv "ATTRIBUTE_RESOLVERS" }}
         </AttributeResolver>
 
-        <AttributeFilter type="XML" validate="true" path="attribute-configs/attribute-policy.xml"/>
+        <AttributeFilter type="XML" validate="true" path="attribute-policy.xml"/>
 
         <!-- Your SP generated these credentials.  They're used to talk to IdP's. -->
         <CredentialResolver type="File" key="cert/server.key.pem" certificate="cert/server.crt.pem"/>

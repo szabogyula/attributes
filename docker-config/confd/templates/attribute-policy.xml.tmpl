@@ -20,21 +20,21 @@
         Shared rule for all "scoped" attributes, but you'll have to manually apply it inside
         an AttributeRule for each attribute you want to check.
         -->
+    {{ if eq (getenv "SCOPING") "false" }}
+    {{ else }}
     <afp:PermitValueRule id="ScopingRules" xsi:type="AND">
         <Rule xsi:type="NOT">
             <Rule xsi:type="AttributeValueRegex" regex="@"/>
         </Rule>
         <Rule xsi:type="saml:AttributeScopeMatchesShibMDScope"/>
     </afp:PermitValueRule>
+    {{ end }}
     <afp:AttributeFilterPolicy>
         <!-- This policy is in effect in all cases. -->
         <afp:PolicyRequirementRule xsi:type="ANY"/>
         <!-- Filter out undefined affiliations and ensure only one primary. -->
         <afp:AttributeRule attributeID="scoped-affiliation">
-            <afp:PermitValueRule xsi:type="AND">
-                <RuleReference ref="eduPersonAffiliationValues"/>
-                <RuleReference ref="ScopingRules"/>
-            </afp:PermitValueRule>
+            <afp:PermitValueRuleReference ref="eduPersonAffiliationValues"/>
         </afp:AttributeRule>
         <afp:AttributeRule attributeID="affiliation">
             <afp:PermitValueRuleReference ref="eduPersonAffiliationValues"/>
@@ -42,12 +42,18 @@
         <afp:AttributeRule attributeID="primary-affiliation">
             <afp:PermitValueRuleReference ref="eduPersonAffiliationValues"/>
         </afp:AttributeRule>
+        {{ if eq (getenv "SCOPING") "false" }}
+        {{ else }}
+        <afp:AttributeRule attributeID="scoped-affiliation">
+            <afp:PermitValueRuleReference ref="ScopingRules"/>
+        </afp:AttributeRule>
         <afp:AttributeRule attributeID="principalName">
             <afp:PermitValueRuleReference ref="ScopingRules"/>
         </afp:AttributeRule>
         <afp:AttributeRule attributeID="targeted-id">
             <afp:PermitValueRuleReference ref="ScopingRules"/>
         </afp:AttributeRule>
+        {{ end }}
         <!-- Regular expression filter for E-mail -->
         <afp:AttributeRule attributeID="mail">
             <afp:PermitValueRule xsi:type="basic:AttributeValueRegex" regex="^.+@.+$"/>

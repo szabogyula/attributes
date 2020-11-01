@@ -61,6 +61,9 @@ DYNAMIC_METADATA_PROVIDER=http://mdx.eduid.hu/entities/$entityID
 # optional
 MDQ_METADATA_PROVIDER=https://mdx.eduid.hu/entities
 
+# optional, if false, then the scoping policy rules will be disabled
+SCOPING=true
+
 
 # optional
 # ATTRIBUTE_RESOLVERS=<AttributeResolver type="SimpleAggregation" attributeId="principalName" format="urn:oid:1.3.6.1.4.1.5923.1.1.1.6"><Entity>https://hexaa.eduid.hu/hexaa</Entity><Attribute Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.7" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" FriendlyName="eduPersonEntitlement"/></AttributeResolver>

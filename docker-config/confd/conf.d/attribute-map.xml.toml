@@ -1,0 +1,4 @@
+[template]
+src = "attribute-map.xml.tmpl"
+dest = "/etc/shibboleth/attribute-map.xml"
+

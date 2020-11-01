@@ -10,7 +10,6 @@ services:
       - ./app:/var/www/html
 
       - /opt/attributes/config:/var/www/html/config
-      - /opt/attributes/shibboleth/attribute-configs:/etc/shibboleth/attribute-configs
       - /opt/attributes/shibboleth/cert:/etc/shibboleth/cert
       - /opt/attributes/apache_cert/:/etc/apache2/cert
       - /opt/attributes/logs/apache2:/var/log/apache2
