@@ -131,4 +131,8 @@
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.16" id="orcid"/>
     <!-- SSH Public Key -->
     <Attribute name="urn:oid:1.3.6.1.4.1.24552.500.1.1.1.13" id="sshPublicKey"/>
+    {{ if getenv "REQUESTED_ATTRIBUTE" }}
+    <!-- Custom attribute from docker env variable -->
+    <Attribute name="{{ getenv "REQUESTED_ATTRIBUTE" }}" id="{{ getenv "REQUESTED_ATTRIBUTE" }}"/>
+    {{ end }}
 </Attributes>
