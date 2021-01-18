@@ -73,6 +73,7 @@ class DefaultController implements ControllerProviderInterface
 
         }
         $shibbolethXml = file_get_contents('/etc/shibboleth/shibboleth2.xml');
+
         return $app['twig']->render('default.html.twig', array(
             'brand'           => $app['config']['brand'],
             'logo'            => $app['config']['logo'],
@@ -85,6 +86,7 @@ class DefaultController implements ControllerProviderInterface
             'metadata_vars'   => $metadataVars,
             'server'          => $_SERVER,
             'shibboleth_xml'  => $shibbolethXml,
+            'custom_login_url' => getenv('CUSTOM_LOGIN_URL'),
         ));
     }
 }

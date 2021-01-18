@@ -33,6 +33,11 @@
                         <a class="nav-link" href="/Shibboleth.sso/Logout"><i class="fa fa-sign-out"></i> Logout</a>
                     {% else %}
                         <a class="nav-link" href="/Shibboleth.sso/Login"><i class="fa fa-sign-in"></i> Login</a>
+                        {% if custom_login_url %}
+                            <div>
+                                <a class="nav-link" href="{{ custom_login_url }}"><i class="fa fa-sign-in"></i>Login with custom url</a>
+                            </div>
+                        {% endif %}
                     {% endif %}
                     </li>
                 </ul>

@@ -91,4 +91,8 @@ SCOPING=true
 
 # optional requested attribute in metadata
 # REQUESTED_ATTRIBUTE=aat_id
+
+# optional custom another login url
+# CUSTOM_LOGIN_URL=https://idp.example.com/Shibbolet.sso/login&entityId=localsp_entityid
+
 ```
