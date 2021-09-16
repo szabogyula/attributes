@@ -7,9 +7,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# configure shibboleth sp
-ADD docker-config/shibboleth/cert                 /etc/shibboleth/cert
-
 #configure apache
 ADD docker-config/apache_cert/*                  /etc/apache2/cert/
 RUN a2ensite default-ssl && a2dissite 000-default && a2enmod ssl && a2enmod rewrite
@@ -18,6 +15,9 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ## build application
 ADD app /var/www/html
 RUN cd /var/www/html && composer install
+
+# create shibboleth cert directory
+RUN mkdir /etc/shibboleth/cert
 
 # add shibboleth-sp logout page assets
 ADD shibboleth-sp                                 /var/www/html/web/shibboleth-sp
