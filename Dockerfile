@@ -3,7 +3,7 @@ FROM php:7.2-apache-stretch
 
 # install required packages
 RUN apt-get update \
-    && apt-get install -yq git libapache2-mod-shib2 unzip supervisor\
+    && apt-get install -yq git libapache2-mod-shib2 unzip vim silversearcher-ag supervisor\
     && rm -rf /var/lib/apt/lists/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
