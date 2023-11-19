@@ -30,7 +30,7 @@
                     </li>
                     <li class="nav-item">
                     {% if logged_in %}
-                        <a class="nav-link" href="/Shibboleth.sso/Logout"><i class="fa fa-sign-out"></i> Logout</a>
+                        <a id='logout' class="nav-link" href="/Shibboleth.sso/Logout"><i class="fa fa-sign-out"></i> Logout</a>
                     {% else %}
                         <a class="nav-link" href="/Shibboleth.sso/Login"><i class="fa fa-sign-in"></i> Login</a>
                         {% if custom_login_url %}

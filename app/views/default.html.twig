@@ -48,7 +48,7 @@
                                 </code>
                             </small>
                         </td>
-                        <td>
+                        <td id='{{ id }}'>
                             {% if ';' in attribute.value %}
                                 <ul>
                                     {% for partial in attribute.value|split(';') %}
@@ -70,8 +70,8 @@
         <hr>
 
         <div>
-            <a data-toggle="collapse" href="#metadata"><h4 class="border-bottom border-light">IDP metadata variables <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="metadata" class="collapse">
+            <a href="#metadata"><h4 class="border-bottom border-light">IDP metadata variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="metadata">
                 <table class="table table-responsive">
                     <thead>
                     <tr>
@@ -101,8 +101,8 @@
         </div>
 
         <div>
-            <a data-toggle="collapse" href="#shibboleth"><h4 class="border-bottom border-light">Shibboleth SP related variables <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="shibboleth" class="collapse">
+            <a href="#shibboleth"><h4 class="border-bottom border-light">Shibboleth SP related variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="shibboleth">
                 <table class="table table-responsive">
                     <thead>
                     <tr>
@@ -128,8 +128,8 @@
         </div>
 
         <div>
-            <a data-toggle="collapse" href="#assertions"><h4 class="border-bottom border-light">SAML assertions <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="assertions" class="collapse">
+            <a href="#assertions"><h4 class="border-bottom border-light">SAML assertions <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="assertions">
                 {% for key, assertion in assertion_urls %}
                     <div>
                         {{ key }}
@@ -147,8 +147,8 @@
         </div>
 
         <div>
-            <a class="border-bottom" data-toggle="collapse" href="#server"><h4 class="border-bottom border-light">$_SERVER variables <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="server" class="collapse">
+            <a class="border-bottom" href="#server"><h4 class="border-bottom border-light">$_SERVER variables <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="server">
                 <table class="table table-responsive">
                     <thead>
                     <tr>
@@ -174,8 +174,8 @@
         </div>
 
         <div>
-            <a class="border-bottom" data-toggle="collapse" href="#shibboleth2_xml"><h4 class="border-bottom border-light">Shibboleth configuration <i class="float-right fa fa-angle-down"></i></h4></a>
-            <div id="shibboleth2_xml" class="collapse">
+            <a class="border-bottom" href="#shibboleth2_xml"><h4 class="border-bottom border-light">Shibboleth configuration <i class="float-right fa fa-angle-down"></i></h4></a>
+            <div id="shibboleth2_xml">
               <pre>
                 <code class="xml">
                   {{ shibboleth_xml }}
@@ -219,7 +219,4 @@
             hljs.initHighlightingOnLoad();
         })
     </script>
-
-
 {% endblock %}
-

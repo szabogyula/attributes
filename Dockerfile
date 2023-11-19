@@ -32,6 +32,8 @@ ADD docker-config/confd /etc/confd
 
 COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN echo "Mutex posixsem" >> /etc/apache2/apache2.conf
+
 ENV LOGLEVEL INFO
 
 HEALTHCHECK CMD curl http://localhost/Shibboleth.sso/Metadata
