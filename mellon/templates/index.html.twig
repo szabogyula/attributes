@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>mod_auth_mellon test page</title>
+		<!-- script src="https://cdn.jsdelivr.net/npm/dracula-ui@1.0.6/index.min.js"></script -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dracula-ui@1.0.6/styles/dracula-ui.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+		<!-- and it's easy to individually load additional languages -->
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+		 <script>hljs.highlightAll();</script>
+	</head>
+	<body class="drac-bg-black">
+		<div class="drac-box" style="margin: auto; max-width: 800px;">
+			<h1 class="drac-heading drac-text-purple drac-my-lg drac-py-lg">Attributes from mellon</h1>
+			
+            <div class="drac-box drac-my-lg drac-text-right">
+                <a class="drac-anchor drac-btn drac-bg-yellow-pink" href="/mellon/logout?ReturnTo=/loggedout">Logout</a>
+            </div>
+            
+            <table class="drac-table">
+				<thead>
+					<tr>
+						<th class="drac-text drac-text-purple">USER ATTRIBUTE ENV VARIABLE</th>
+						<th class="drac-text drac-text-purple">VALUE</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in attributes %}
+						<tr>
+							<td class="drac-text drac-text-white">{{ key }}</td>
+							<td class="drac-text drac-text-white">{{ value }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table class="drac-table drac-mt-lg">
+				<thead>
+					<tr>
+						<th class="drac-text drac-text-purple">ASSERTION RELATED ENV VARIABLE</th>
+						<th class="drac-text drac-text-purple">VALUE</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, value in assertion %}
+						<tr>
+							<td class="drac-text drac-text-white">{{ key }}</td>
+							<td class="drac-text drac-text-white">{{ value }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<h1 class="drac-heading drac-text-purple drac-my-lg drac-py-lg">SAML RESPONSE</h1>
+            <pre><code class="language-xml">{{ saml_response }}</code></pre>
+            <div class="drac-text drac-text-white">To get <code>AuthnContextClassRef</code> from response use this xpath: <code>.//*[AuthnContextClassRef]</code></div>
+			<h1 class="drac-heading drac-text-purple drac-my-lg drac-py-lg">SAML SESSION</h1>
+            <pre><code class="language-xml">{{ session }}</code></pre>
+		</div>
+	</body>
+</html>

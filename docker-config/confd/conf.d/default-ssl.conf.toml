@@ -1,4 +1,0 @@
-[template]
-src = "default-ssl.conf.tmpl"
-dest = "/etc/apache2/sites-enabled/default-ssl.conf"
-

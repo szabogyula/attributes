@@ -12,18 +12,18 @@
         ServerName https://{{ getenv "VIRTUAL_HOST" }}:443
 {{ end }}
 
-        UseCanonicalName On
+    UseCanonicalName On
 
-	DocumentRoot /var/www/html/web
+	DocumentRoot /var/www/html/shib/web
 	
-	<Directory /var/www/html/web>
+	<Directory /var/www/html/shib/web>
 	  AllowOverride All
           AuthType Shibboleth
           ShibRequestSetting requireSession false
           ShibRequestSetting exportAssertion true
           Require shibboleth
 	</Directory>
-	<Directory /var/www/html/web/strict>
+	<Directory /var/www/html/shib/web/strict>
 	  AllowOverride All
           AuthType Shibboleth
           ShibRequestSetting requireSession true
