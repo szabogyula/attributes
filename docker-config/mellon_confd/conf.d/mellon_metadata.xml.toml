@@ -1,4 +1,0 @@
-[template]
-src = "mellon_metadata.xml"
-dest = "/etc/mellon/mellon_metadata.xml"
-

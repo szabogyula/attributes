@@ -1,3 +1,0 @@
-[template]
-src = "mod_auth_mellon.conf.tmpl"
-dest = "/etc/apache2/sites-available/mod_auth_mellon.conf"

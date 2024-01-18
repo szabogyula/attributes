@@ -12,6 +12,9 @@ ADD docker-config/apache_cert/* /etc/apache2/cert/
 RUN a2dissite 000-default default-ssl && a2enmod ssl && a2enmod rewrite
 ENV APACHE_LOG_DIR /var/log/apache2
 
+ADD docker-config/sites-available /etc/apache2/sites-available
+ADD docker-config/mellon /etc/mellon
+
 ## build shib application
 ADD app /var/www/html/shib
 RUN cd /var/www/html/shib && composer install
@@ -19,25 +22,18 @@ RUN cd /var/www/html/shib && composer install
 # add shibboleth-sp logout page assets
 ADD shibboleth-sp /var/www/html/shib/web/shibboleth-sp
 
-
 ## build mellon application
 ADD mellon /var/www/html/mellon
 RUN cd /var/www/html/mellon && composer install
-
 
 # create shibboleth and mellon cert directory
 RUN mkdir /etc/shibboleth/cert
 RUN mkdir -p /etc/mellon/cert
 
-
 # install the runner
 ADD docker-config/start.sh /start.sh
-ADD tools/confd-0.16.0-linux-amd64 /usr/local/bin/confd
-
-RUN chmod +x /usr/local/bin/confd
 
 ADD docker-config/shibboleth_confd /etc/shibboleth_confd
-ADD docker-config/mellon_confd /etc/mellon_confd
 
 COPY docker-config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
