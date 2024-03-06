@@ -17,5 +17,5 @@ jobs:
     - name: Build the Docker image
       run: |
         docker build . --file Dockerfile --tag szabogyula/attributes:latest &&
-        docker login -u szabogyula -p ${DOCKER_HUB_ACCESS_TOKEN} &&
+        docker login -u szabogyula -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} &&
         docker push szabogyula/attributes:latest
