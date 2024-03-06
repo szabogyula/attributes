@@ -15,7 +15,7 @@ else
   sed -i "s#\# ServerName.*#ServerName https://${VIRTUAL_HOST}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
   if [[ -n ${DISCOVERY_URL} ]]; then
     sed -i "s#\# MellonDiscoveryURL.*#MellonDiscoveryURL ${DISCOVERY_URL}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
-  endif
+  fi
   
   curl -o /etc/mellon/metadata/idp.xml ${IDP_METADATA_URL:-http://mdr/idp.xml}
 
