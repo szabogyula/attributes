@@ -9,7 +9,7 @@ if [ $1 == 'shibboleth' ]; then
   exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 else
   sed -i "s#http:\/\/localhost:8081#https://${VIRTUAL_HOST}#g" /etc/mellon/mellon_metadata.xml
-  mkdir /var/www/html/mellon/sp
+  mkdir -p /var/www/html/mellon/sp
   cp -a /etc/mellon/mellon_metadata.xml /var/www/html/mellon/sp/metadata.xml
   
   sed -i "s#\# ServerName.*#ServerName https://${VIRTUAL_HOST}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
