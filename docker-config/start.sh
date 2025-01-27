@@ -20,10 +20,9 @@ else
   sed -i "s#\# ServerName.*#ServerName ${PROTOCOL}://${VIRTUAL_HOST}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
   
   if [ -n "${DISCOVERY_URL}" ]; then
-    sed -i "s#\# MellonDiscoveryURL.*#MellonDiscoveryURL ${DISCOVERY_URL}#g" /etc/apache2/sites-available/mod_auth_mellon.conf 
-  fi
-
-  if [ -n ${IDP_METADATA_URL}" ]; then
+    sed -i "s#\# MellonDiscoveryURL.*#MellonDiscoveryURL ${DISCOVERY_URL}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
+    sed -i "s#MellonIdPMetadataFile##g" /etc/apache2/sites-available/mod_auth_mellon.conf
+  elif [ -n ${IDP_METADATA_URL}" ]; then
     curl -o /etc/mellon/metadata/idp.xml ${IDP_METADATA_URL}
   fi
 
