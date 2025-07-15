@@ -23,6 +23,10 @@ else
     sed -i "s#\# MellonDiscoveryURL.*#MellonDiscoveryURL ${DISCOVERY_URL}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
   fi
   
+  if [ -n "${NAME_ID_FORMAT}" ]; then
+    sed -i "s#\# MellonNameIDFormat.*#MellonNameIDFormat ${NAME_ID_FORMAT}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
+  fi
+
   if [ -n "${IDP_METADATA_URL}" ]; then
     curl -o /etc/mellon/metadata/idp.xml ${IDP_METADATA_URL}
   else

@@ -95,4 +95,7 @@ SCOPING=true
 # optional custom another login url
 # CUSTOM_LOGIN_URL=https://idp.example.com/Shibbolet.sso/login&entityId=localsp_entityid
 
+# optional nameIdFormat at mellon (MellonNameIDFormat)
+# NAME_ID_FORMAT=urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+
 ```
