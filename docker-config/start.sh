@@ -14,6 +14,11 @@ if [ $1 == 'shibboleth' ]; then
   exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 else
   sed -i "s#http:\/\/localhost:8081#${PROTOCOL}://${VIRTUAL_HOST}#g" /etc/mellon/mellon_metadata.xml
+
+  if [ -n "${NAME_ID_FORMAT}" ]; then
+    sed -i "s#urn:oasis:names:tc:SAML:2.0:nameid-format:transient#${NAME_ID_FORMAT}#g" /etc/mellon/mellon_metadata.xml
+  fi
+
   mkdir -p /var/www/html/mellon/sp
   cp -a /etc/mellon/mellon_metadata.xml /var/www/html/mellon/sp/metadata.xml
   
@@ -23,10 +28,6 @@ else
     sed -i "s#\# MellonDiscoveryURL.*#MellonDiscoveryURL ${DISCOVERY_URL}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
   fi
   
-  if [ -n "${NAME_ID_FORMAT}" ]; then
-    sed -i "s#\# MellonNameIDFormat.*#MellonNameIDFormat ${NAME_ID_FORMAT}#g" /etc/apache2/sites-available/mod_auth_mellon.conf
-  fi
-
   if [ -n "${IDP_METADATA_URL}" ]; then
     curl -o /etc/mellon/metadata/idp.xml ${IDP_METADATA_URL}
   else
